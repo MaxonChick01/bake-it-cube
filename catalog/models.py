@@ -11,13 +11,13 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание', blank=True, null=True, default='')
     weight = models.PositiveIntegerField(verbose_name='Вес', blank=True, null=True, default=0)
     kkal = models.PositiveIntegerField(verbose_name='Ккал', blank=True, null=True, default=0)
-    ingredients = models.ManyToManyField('Ingredients', verbose_name='Состав')
+    ingredients = models.ManyToManyField('Ingredient', verbose_name='Состав')
 
     def __str__(self):
         return self.name
 
 
-class Ingredients(models.Model):
+class Ingredient(models.Model):
     class Meta:
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
