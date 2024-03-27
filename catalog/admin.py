@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Ingredient
+from .models import Product, Ingredient, Category
 
 
 @admin.register(Product)
@@ -12,3 +12,8 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
