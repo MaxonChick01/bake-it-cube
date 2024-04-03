@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Your meal</title>
+    <title>{{ label }}</title>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
     <meta
       name="viewport"
@@ -51,42 +51,14 @@
 						  <span>Все</span>
 						</button>
 					  </li>
-                      <li data-id="1">
-                        <button>
-                          <img src="{% static 'Img/Home/Filter/1.png' %}" alt="" />
-                          <span>Пончики</span>
-                        </button>
-                      </li>
-                      <li data-id="2">
-                        <button>
-                          <img src="{% static 'Img/Home/Filter/2.png' %}" alt="" />
-                          <span>Кексы</span>
-                        </button>
-                      </li>
-                      <li data-id="3">
-                        <button>
-                          <img src="{% static 'Img/Home/Filter/3.png' %}" alt="" />
-                          <span>Круассаны</span>
-                        </button>
-                      </li>
-                      <li data-id="4">
-                        <button>
-                          <img src="{% static 'Img/Home/Filter/4.png' %}" alt="" />
-                          <span>Печенье</span>
-                        </button>
-                      </li>
-                      <li data-id="5">
-                        <button>
-                          <img src="{% static 'Img/Home/Filter/5.png' %}" alt="" />
-                          <span>Крендели</span>
-                        </button>
-                      </li>
-                      <li data-id="6">
-                        <button>
-                          <img src="{% static 'Img/Home/Filter/6.png' %}" alt="" />
-                          <span>Хлеб</span>
-                        </button>
-                      </li>
+                      {% for category in categories %}
+                      <li data-id="{{ category.id }}">
+						<button>
+						  <img src="{{ category.image.url }}" alt="" />
+						  <span>{{ category.name }}</span>
+						</button>
+					  </li>
+                      {% endfor %}
                     </ul>
                   </nav>
                 </form>
