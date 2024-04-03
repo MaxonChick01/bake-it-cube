@@ -201,56 +201,53 @@
                   <div class="home__content">
                     <h1 class="home__title">Пончики</h1>
                     <div class="home__items">
+
+                      {% for item in products %}
                       <div class="home__item">
                         <img
                           class="home__item-image"
-                          src="{% static 'Img/Home/Items/1.jpg' %}"
+                          src="{{ item.image.url }}"
                           alt=""
                         />
-                        <span class="home__item-price">250₽</span>
-                        <span class="home__item-name">Розовая сладость</span>
-                        <span class="home__item-weight">200г</span>
+                        <span class="home__item-price">{{ item.price }}₽</span>
+                        <span class="home__item-name">{{ item.name }}</span>
+                        <span class="home__item-weight">{{ item.weight }}г.</span>
                         <!-- В href указываем popup + id товара -->
-                        <a href="#popup1" class="home__item-button popup-link"
+                        <a href="#popup{{ item.id }}" class="home__item-button popup-link"
                           >Добавить</a
                         >
 
                         <!-- В id указываем popup + id товара -->
 						<!-- В data-id указываем id товара -->
-                        <div class="popup" data-id="1" id="popup1">
+                        <div class="popup" data-id="{{ item.id }}" id="popup{{ item.id }}">
                           <div class="popup__body">
                             <div class="popup__content">
                               <div class="popup__header">
-                                <h3 class="popup__title">Розовая сладость</h3>
+                                <h3 class="popup__title">{{ item.name }}</h3>
                                 <span class="popup__close close-popup"></span>
                               </div>
 
                               <div class="popup__content-wrapper">
                                 <img
-                                  src="{% static '/Img/Home/Items/1.jpg' %}"
+                                  src="{{ item.image.url }}"
                                   alt=""
                                   class="popup__image"
                                 />
                                 <div class="popup__text">
                                   <p class="popup__description">
-                                    Большая рубленая котлета из свежего говяжего
-                                    мяса покорит вас своей сочностью, а
-                                    хрустящие листья салата добавят свежести.
-                                    (лень писать про пончик реально)
+                                    {{ item.description }}
                                   </p>
                                   <figure class="popup__structure structure">
                                     <figcaption class="structure__title">
                                       Состав:
                                     </figcaption>
                                     <ul class="structure__list">
-                                      <li>Пшеничная булочка</li>
-                                      <li>Котлета из говядины</li>
-                                      <li>Красный лук</li>
-                                      <li>Листья салата</li>
-                                      <li>Соус горчичный</li>
+                                      {% for ingr in item.ingredients.all %}
+                                        <li>{{ ingr.name }}</li>
+                                      {% endfor %}
                                     </ul>
                                   </figure>
-                                  <p class="popup__weight">200г, ккал 430</p>
+                                  <p class="popup__weight">{{ item.weigth }}г, ккал {{ item.kkal }}</p>
                                 </div>
                               </div>
                               <div class="popup__footer">
@@ -272,90 +269,14 @@
                                     </button>
                                   </div>
                                 </div>
-                                <span class="popup__price">250₽</span>
+                                <span class="popup__price">{{ item.price }}₽</span>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      {% endfor %}
 
-					  <div class="home__item">
-                        <img
-                          class="home__item-image"
-                          src="{% static 'Img/Home/Items/2.jpg' %}"
-                          alt=""
-                        />
-                        <span class="home__item-price">200₽</span>
-                        <span class="home__item-name">Максим</span>
-                        <span class="home__item-weight">200г</span>
-                        <!-- В href указываем popup + id товара -->
-                        <a href="#popup2" class="home__item-button popup-link"
-                          >Добавить</a
-                        >
-
-                        <!-- В id указываем popup + id товара -->
-						<!-- В data-id указываем id товара -->
-                        <div class="popup" data-id="2" id="popup2">
-                          <div class="popup__body">
-                            <div class="popup__content">
-                              <div class="popup__header">
-                                <h3 class="popup__title">Максим</h3>
-                                <span class="popup__close close-popup"></span>
-                              </div>
-
-                              <div class="popup__content-wrapper">
-                                <img
-                                  src="{% static '/Img/Home/Items/2.jpg' %}"
-                                  alt=""
-                                  class="popup__image"
-                                />
-                                <div class="popup__text">
-                                  <p class="popup__description">
-                                    Большая рубленая котлета из свежего говяжего
-                                    мяса покорит вас своей сочностью, а
-                                    хрустящие листья салата добавят свежести.
-                                    (лень писать про пончик реально)
-                                  </p>
-                                  <figure class="popup__structure structure">
-                                    <figcaption class="structure__title">
-                                      Состав:
-                                    </figcaption>
-                                    <ul class="structure__list">
-                                      <li>Пшеничная булочка</li>
-                                      <li>Котлета из говядины</li>
-                                      <li>Красный лук</li>
-                                      <li>Листья салата</li>
-                                      <li>Соус горчичный</li>
-                                    </ul>
-                                  </figure>
-                                  <p class="popup__weight">200г, ккал 430</p>
-                                </div>
-                              </div>
-                              <div class="popup__footer">
-                                <div class="popup__buttons-wrapper">
-                                  <button class="popup__button close-popup">
-                                    Добавить
-                                  </button>
-                                  <div class="popup__counter counter">
-                                    <button
-                                      class="counter__button counter__button_del"
-                                    >
-                                      -
-                                    </button>
-                                    <span class="counter__value">1</span>
-                                    <button
-                                      class="counter__button counter__button_add"
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                </div>
-                                <span class="popup__price">200₽</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
                       <!-- Всегда должен быть один пустой -->
                       <div class="home__item-empty-space"></div>
