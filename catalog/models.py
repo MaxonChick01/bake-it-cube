@@ -1,4 +1,19 @@
 from django.db import models
+from solo.models import SingletonModel
+
+
+class Info(SingletonModel):
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
+
+    phone = models.CharField(max_length=255, verbose_name='Телефон', blank=False, null=False)
+    vk = models.CharField(max_length=255, verbose_name='ВК', blank=False, null=False)
+    tg = models.CharField(max_length=255, verbose_name='Телеграм', blank=False, null=False)
+
+    def __str__(self):
+        return "Контакты для связи"
+
 
 
 class Product(models.Model):

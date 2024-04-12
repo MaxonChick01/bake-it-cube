@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Product, Ingredient, Category
+from .models import Product, Ingredient, Category, Info
+from solo.admin import SingletonModelAdmin
 
 
 @admin.register(Product)
@@ -17,3 +18,6 @@ class IngredientAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
+
+
+admin.site.register(Info, SingletonModelAdmin)
