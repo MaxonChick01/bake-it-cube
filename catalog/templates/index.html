@@ -138,8 +138,8 @@
 								  <span class="popup__close close-popup"></span>
 								</div>
 								<form action="api/order" method="POST" class="popup__form _delivery">
+                                    {% csrf_token %}
 									<!-- BACKEND: POST запрос приходит на эндпоинт api/order, содержит:
-									1) csrfmiddlewaretoken: токен для проверки
 									2) name: имя пользователя
 									3) phone: телефон
 									4) delivery: true - доставка, false - самовывоз

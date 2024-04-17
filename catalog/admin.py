@@ -29,6 +29,7 @@ class OrderProductInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     model = Order
     inlines = [OrderProductInline, ]
+    fields = ('customer_name', 'phone', 'delivery', 'address', 'floor', 'intercom', 'created_at')
 
     def has_add_permission(self, request):
         return False

@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Category, Product, Info
+from django.shortcuts import render, HttpResponse
+from .models import Category, Product, Info, OrderProduct, Order
 
 
 def main(request):
@@ -18,3 +18,24 @@ def main(request):
     context['categories'] = categories
     context['products'] = products
     return render(request, 'index.html', context)
+
+
+def order(request):
+    data = {
+        'customer_name': request.POST.get('name'),
+        'phone': request.POST.get('phone'),
+        'delivery': request.POST.get('delivery'),
+        'address': request.POST.get('address', None),
+        'floor': request.POST.get('floor', None),
+        'intercom': request.POST.get('flat', None)
+    }
+    if data['delivery'] == 'true':
+        data['delivery'] = 'Доставка'
+    else:
+        data['delivery'] = 'Самовывоз'
+
+    data['floor'] = int(data['floor'])
+    order = Order.objects.create(**data)
+
+
+    return HttpResponse({}, status=200)
