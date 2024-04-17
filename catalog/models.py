@@ -15,7 +15,6 @@ class Info(SingletonModel):
         return "Контакты для связи"
 
 
-
 class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
@@ -56,3 +55,39 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
+class Order(models.Model):
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    CHOICES = (
+        ('Доставка', 'Доставка'),
+        ('Самовывоз', 'Самовывоз')
+    )
+
+    customer_name = models.CharField(max_length=255, verbose_name='Имя', blank=False, null=False)
+    phone = models.CharField(max_length=255, verbose_name='Телефон', blank=False, null=False)
+    delivery = models.CharField(max_length=255, choices=CHOICES, verbose_name='Доставка/Самовывоз', blank=False,
+                                null=False)
+    address = models.CharField(max_length=255, verbose_name='Адрес', blank=True, null=True)
+    floor = models.IntegerField(blank=True, null=True, default=1, verbose_name='Этаж')
+    intercom = models.CharField(max_length=255, verbose_name='Домофон', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время')
+
+    def __str__(self):
+        return f'Заказ {self.customer_name} от {self.created_at.date()}'
+
+
+class OrderProduct(models.Model):
+    class Meta:
+        verbose_name = 'позиция'
+        verbose_name_plural = 'Количество товара'
+
+    product = models.ForeignKey(Product, verbose_name="Продукт", blank=False, null=False, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(verbose_name='Кол-во', blank=False, null=False, default=1)
+    order = models.ForeignKey(Order, verbose_name='Заказ', blank=False, null=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        # return f'{self.product.name} - {self.count}шт.'
+        return ''

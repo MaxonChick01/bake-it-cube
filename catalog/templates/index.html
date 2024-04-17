@@ -299,8 +299,8 @@
 
         <div class="footer_contacts">
           <p class="footer__title">Номер для заказа</p>
-          <a href="tel:8 (900) 000-00-00" class="footer__phone"
-            >+7 (900) 000-00-00</a
+          <a href="tel:{{contacts.phone}}" class="footer__phone"
+            >{{contacts.phone}}</a
           >
         </div>
 
@@ -309,12 +309,12 @@
           <nav class="footer__links">
             <ul class="footer__links-list">
               <li>
-                <a href="">
+                <a href="{{contacts.vk}}">
                   <img src="{% static 'Img/Footer/Icon_2.svg' %}" alt="" />
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="{{contacts.tg}}">
                   <img src="{% static 'Img/Footer/Icon_3.svg' %}" alt="" />
                 </a>
               </li>
