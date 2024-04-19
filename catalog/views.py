@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Category, Product, Info, OrderProduct, Order
 
 
@@ -33,10 +35,27 @@ def order(request):
         data['delivery'] = 'Доставка'
     else:
         data['delivery'] = 'Самовывоз'
-    data['floor'] = int(data['floor'])
+    data['floor'] = int(data['floor']) if data['floor'] else None
     order = Order.objects.create(**data)
     order_product = eval(request.POST.get('products'))
     for product, count in order_product.items():
         OrderProduct.objects.create(order=order, product=Product.objects.get(id=product), count=count)
 
     return HttpResponse({}, status=200)
+
+
+@csrf_exempt
+def cart(request):
+    if request.method == "POST":
+        cart_request = eval(request.POST['cart'])
+        cart_response = {}
+        for id, count in cart_request.items():
+            product = Product.objects.get(pk=int(id))
+            cart_response[id] = {
+                'count': count,
+                'name': product.name,
+                'weight': product.weight,
+                'price': product.price,
+                'photo_url': product.image.url
+            }
+        return JsonResponse(cart_response)
