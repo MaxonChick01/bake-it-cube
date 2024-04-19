@@ -33,9 +33,10 @@ def order(request):
         data['delivery'] = 'Доставка'
     else:
         data['delivery'] = 'Самовывоз'
-
     data['floor'] = int(data['floor'])
     order = Order.objects.create(**data)
-
+    order_product = eval(request.POST.get('products'))
+    for product, count in order_product.items():
+        OrderProduct.objects.create(order=order, product=Product.objects.get(id=product), count=count)
 
     return HttpResponse({}, status=200)
