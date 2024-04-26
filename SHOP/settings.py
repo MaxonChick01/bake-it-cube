@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog',
     'solo',
+    'rest_framework',
+    'shop_api',
 ]
 
 MIDDLEWARE = [
